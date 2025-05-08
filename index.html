@@ -1,0 +1,705 @@
+<!-- 
+ This source code is derived from DiffusionNOCS (https://github.com/woven-planet/DiffusionNOCS/tree/gh-pages)
+ Copyright 2024 Toyota Motor Corporation.  All rights reserved. 
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- <script src="bootstrap.css"></script> -->
+<script type="text/javascript" charset="utf-8"
+    src="https://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+
+<style type="text/css">
+    body {
+        font-family: "Titillium Web", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+        font-weight: 300;
+        font-size: 17px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    @media screen and (min-width: 980px) {
+        body {
+            width: 980px;
+        }
+    }
+
+
+    h1 {
+        font-weight: 300;
+        line-height: 1.15em;
+    }
+
+    h2 {
+        font-size: 1.75em;
+    }
+
+    a:link,
+    a:visited {
+        color: #1468b7;
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: #208799;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    h2,
+    h3 {
+        text-align: left;
+    }
+
+    h1 {
+        font-size: 40px;
+        font-weight: 500;
+    }
+
+    h2 {
+        font-weight: 400;
+        margin: 16px 0px 4px 0px;
+    }
+
+    h3 {
+        font-weight: 600;
+        margin: 16px 0px 4px 0px;
+    }
+
+    .paper-title {
+        padding: 1px 0px 1px 0px;
+    }
+
+    section {
+        margin: 32px 0px 32px 0px;
+        text-align: justify;
+        clear: both;
+    }
+
+    .col-5 {
+        width: 20%;
+        float: left;
+    }
+
+    .move-down {
+        margin-top: 0.6cm;
+    }
+
+    .col-4 {
+        width: 25%;
+        float: left;
+    }
+
+    .col-3 {
+        width: 33%;
+        float: left;
+    }
+
+    .col-2 {
+        width: 50%;
+        float: left;
+    }
+
+    .col-1 {
+        width: 100%;
+        float: left;
+    }
+
+    .col-8 {
+        width: 12.5%;
+    }
+
+    .author-row,
+    .affil-row {
+        font-size: 26px;
+    }
+
+    .author-row-new {
+        text-align: center;
+    }
+
+    .author-row-new a {
+        display: inline-block;
+        font-size: 20px;
+        padding: 4px;
+    }
+
+    .author-row-new sup {
+        color: #313436;
+        font-size: 12px;
+    }
+
+    .affiliations-new {
+        font-size: 18px;
+        text-align: center;
+        width: 80%;
+        margin: 0 auto;
+        margin-bottom: 20px;
+    }
+
+    .row {
+        margin: 16px 0px 16px 0px;
+    }
+
+    .authors {
+        font-size: 26px;
+    }
+
+    .affiliatons {
+        font-size: 18px;
+    }
+
+    .affil-row {
+        margin-top: 18px;
+    }
+
+    .teaser {
+        max-width: 100%;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .screenshot {
+        width: 256px;
+        border: 1px solid #ddd;
+    }
+
+    .screenshot-el {
+        margin-bottom: 16px;
+    }
+
+    hr {
+        height: 1px;
+        border: 0;
+        border-top: 1px solid #ddd;
+        margin: 0;
+    }
+
+    .material-icons {
+        vertical-align: -6px;
+    }
+
+    p {
+        line-height: 1.25em;
+    }
+
+    .caption {
+        font-size: 16px;
+        color: #666;
+        margin-top: 4px;
+        margin-bottom: 10px;
+        text-align: left;
+    }
+
+
+    video {
+        display: block;
+        margin: auto;
+    }
+
+
+    figure {
+        display: block;
+        margin: auto;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    #bibtex pre {
+        font-size: 14px;
+        background-color: #eee;
+        padding: 16px;
+    }
+
+    .blue {
+        color: #2c82c9;
+        font-weight: bold;
+    }
+
+    .orange {
+        color: #d35400;
+        font-weight: bold;
+    }
+
+    .flex-row {
+        display: flex;
+        flex-flow: row wrap;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+    }
+
+    .paper-btn-coming-soon {
+        position: relative;
+        text-align: center;
+
+        display: inline-block;
+        margin: 8px;
+        padding: 8px 8px;
+
+        border-width: 0;
+        outline: none;
+        border-radius: 15px;
+
+        background-color: #838383;
+        color: white !important;
+        font-size: 20px;
+        width: 100px;
+        font-weight: 200;
+    }
+
+    .coming-soon {
+        position: absolute;
+        top: -15px;
+        right: -15px;
+    }
+
+    .center {
+        margin-left: 10.0%;
+        margin-right: 10.0%;
+    }
+
+    .paper-btn {
+        position: relative;
+        text-align: center;
+
+        display: inline-block;
+        margin: 8px;
+        padding: 8px 8px;
+
+        border-width: 0;
+        outline: none;
+        border-radius: 15px;
+
+        background-color: #3e3131;
+        color: white !important;
+        font-size: 20px;
+        width: auto;
+        font-weight: 200;
+    }
+
+    .paper-btn-parent {
+        display: flex;
+        justify-content: center;
+        margin: 16px 0px;
+    }
+
+    .disabled {
+        pointer-events: none;
+        opacity: 0.5;
+        cursor: default;
+        text-decoration: none;
+    }
+
+    .paper-btn:hover {
+        opacity: 0.85;
+    }
+
+    .container {
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .venue {
+        font-size: 23px;
+    }
+
+    .topnav {
+        background-color: #EEEEEE;
+        overflow: hidden;
+    }
+
+    .topnav div {
+        max-width: 1070px;
+        margin: 0 auto;
+    }
+
+    .topnav a {
+        display: inline-block;
+        color: black;
+        text-align: center;
+        vertical-align: middle;
+        padding: 16px 16px;
+        text-decoration: none;
+        font-size: 18px;
+    }
+
+    .topnav img {
+        padding: 2px 0px;
+        width: 100%;
+        margin: 0.2em 0px 0.3em 0px;
+        vertical-align: middle;
+    }
+
+    pre {
+        font-size: 0.9em;
+        padding-left: 7px;
+        padding-right: 7px;
+        padding-top: 3px;
+        padding-bottom: 3px;
+        border-radius: 3px;
+        background-color: rgb(235, 235, 235);
+        overflow-x: auto;
+    }
+
+    .download-thumb {
+        display: flex;
+    }
+
+    @media only screen and (max-width: 620px) {
+        .download-thumb {
+            display: none;
+        }
+    }
+
+    .paper-stuff {
+        width: 50%;
+        font-size: 20px;
+    }
+
+    @media only screen and (max-width: 620px) {
+        .paper-stuff {
+            width: 100%;
+        }
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    .column {
+        text-align: center;
+        float: left;
+        width: 16.666%;
+        padding: 5px;
+    }
+
+    .column3 {
+        text-align: center;
+        float: left;
+        width: 33.333%;
+        padding: 5px;
+    }
+
+    .column4 {
+        text-align: center;
+        float: left;
+        width: 50%;
+        padding: 5px;
+    }
+
+    .column5 {
+        text-align: center;
+        float: left;
+        width: 20%;
+        padding: 5px;
+    }
+
+    .column10 {
+        text-align: center;
+        float: left;
+        width: 10%;
+        padding: 5px;
+    }
+
+    .border-right {
+        border-right: 1px solid black;
+    }
+
+    .border-bottom {
+        border-bottom: 1px solid black;
+    }
+
+
+    .row-center {
+        margin: 16px 0px 16px 0px;
+        text-align: center;
+    }
+
+    /* Clearfix (clear floats) */
+    .row::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+
+    .img-fluid {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .figure-img {
+        margin-bottom: 0.5rem;
+        line-height: 1;
+    }
+
+    .rounded-circle {
+        border-radius: 50% !important;
+    }
+
+    .sketch-font {
+        font-family: "Shadows Into Light", sans-serif;
+    }
+
+    /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+    @media screen and (max-width: 500px) {
+        .column {
+            width: 100%;
+        }
+    }
+
+    @media screen and (max-width: 500px) {
+        .column3 {
+            width: 100%;
+        }
+    }
+
+    table {
+        width: 100%;
+        table-layout: fixed;
+        border-collapse: collapse;
+    }
+
+    th {
+        text-align: center;
+        border: 1px;
+    }
+
+    td {
+        border: 1px;
+        padding: 4px;
+        text-overflow: ellipsis;
+        text-align: center;
+    }
+
+    th:first-child,
+    td:first-child {
+        border-right: 3px solid #000;
+        /* Thicker line between column 1 and column 2 */
+    }
+</style>
+<!-- <link rel="stylesheet" href="bootstrap-grid.css"> -->
+<link rel="stylesheet" href="affiliations-container.css">
+</script>
+<link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,600,400italic,600italic,300,300italic'
+    rel='stylesheet' type='text/css'>
+
+<head>
+    <title>
+        Robot Local Planner: A Periodic Sampling-Based Motion Planner with Minimal Waypoints for Home Environments
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+    <meta property="og:title"
+        content="Robot Local Planner: A Periodic Sampling-Based Motion Planner with Minimal Waypoints for Home Environments">
+    <meta property="og:description"
+        content="We propose Robot Local Planner (RLP), a periodic sampling-based trajectory planner that enables fast and safe manipulation in home environments by leveraging minimal waypoints and robust inverse kinematics." />
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:creator" content="">
+    <meta name="twitter:title"
+        content="Robot Local Planner: A Periodic Sampling-Based Motion Planner with Minimal Waypoints for Home Environments">
+    <meta name="twitter:description"
+        content="We propose Robot Local Planner (RLP), a periodic sampling-based trajectory planner that enables fast and safe manipulation in home environments by leveraging minimal waypoints and robust inverse kinematics.">
+    <meta name="twitter:image" content="https://toyotafrc.github.io/RobotLocalPlanner-Proj/img/ga.png">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="paper-title">
+            <h1>
+                Robot Local Planner: A Periodic Sampling-Based Motion Planner with Minimal Waypoints for Home
+                Environments
+        </div>
+
+        <div id="authors">
+            <center>
+                <div class="author-row-new">
+                    Keisuke Takeshita<sup>1</sup>, Takahiro Yamazaki<sup>1</sup>, Tomohiro Ono<sup>1</sup>, and Takashi
+                    Yamamoto<sup>2</sup>
+                    <!-- <a href="">Keisuke Takeshita<sup>1</sup></a>,
+                    <a href="">Takahiro Yamazaki<sup>1</sup></a>,
+                    <a href="">Tomohiro Ono<sup>1</sup></a>,
+                    and <a href="">Takashi Yamamoto<sup>2</sup></a> -->
+                </div>
+            </center>
+            <center>
+                <div class="affiliatons">
+                    <span class="author-block">
+                        <sup>1</sup>
+                        Frontier Research Center, Toyota Motor Corporation,<br>
+                        <sup>2</sup> Department of Information Science, Faculty of Information Science, Aichi Institute
+                        of Technology
+                    </span>
+                    <div class="affiliations-logos">
+                        <a href="https://global.toyota/en/mobility/frontier-research/" style="vertical-align:middle">
+                            <img class="affiliation-logo-img" src="img/frc-logo.png">
+                        </a>
+                        <a href="https://www.ait.ac.jp/e/" style="vertical-align:middle">
+                            <img class="affiliation-logo-img" src="img/ait-logo.jpg">
+                        </a>
+                    </div>
+                </div>
+                <div class="caption, centered">
+                    <p>
+                        (Posted on May 2025)
+                    </p>
+                </div>
+            </center>
+
+            <div style="text-align: center;">
+                <div class="paper-btn-parent" style="display: inline-block; margin-right: 10px;">
+                    <a class="paper-btn disabled" href="#" onclick="return false;" style="white-space: nowrap;">
+                        <span class="material-icons"> hourglass_empty </span>
+                        Paper (Coming Soon)
+                    </a>
+                </div>
+                <div class="paper-btn-parent" style="display: inline-block;">
+                    <a class="paper-btn disabled" href="#" onclick="return false;" style="white-space: nowrap;">
+                        <span class="material-icons"> hourglass_empty </span>
+                        Code (Coming Soon)
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <section id="teaser-image">
+            <center>
+                <figure>
+                    <!-- グラフィカルアブストラクトの右側の図が分身動画になっている動画を作る -->
+                    <video class="centered" width="100%" autoplay loop muted playsinline class="video-background ">
+                        <source src="img/teaser.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <p class="caption, centered">
+                        We proposed <b>Robot Local Planner (RLP)</b>,
+                        a periodic sampling-based motion planning method designed for
+                        fast and safe manipulation tasks in home environments.
+                    </p>
+                </figure>
+            </center>
+        </section>
+
+        <section id="abstract" />
+        <h2>Abstract</h2>
+        <hr>
+        <div class="flex-row">
+            <p>
+                The objective of this study is to enable fast and safe manipulation tasks in home environments.
+                Specifically, we aim to develop a system that can recognize its surroundings and identify target objects
+                while in motion, enabling it to plan and execute actions accordingly.
+                We propose a periodic sampling-based whole-body trajectory planning method, called the “Robot Local
+                Planner (RLP).”
+                This method leverages unique features of home environments to enhance computational efficiency, motion
+                optimality, and robustness against recognition and control errors, all while ensuring safety.
+                The RLP minimizes computation time by planning with minimal waypoints and generating safe trajectories.
+                Furthermore, overall motion optimality is improved by periodically executing trajectory planning to
+                select more optimal motions.
+                This approach incorporates inverse kinematics that are robust to base position errors, further enhancing
+                robustness.
+                Evaluation experiments demonstrated that the RLP outperformed existing methods in terms of motion
+                planning time, motion duration, and robustness, confirming its effectiveness in home environments.
+                Moreover, application experiments using a tidy-up task achieved high success rates and short operation
+                times, thereby underscoring its practical feasibility.
+            </p>
+        </div>
+        </section>
+
+        <div class="section">
+            <h2>Method</h2>
+            <hr>
+            <p> In general, the RLP operates similarly to RRT-Connect in motion, performing planning periodically.</p>
+            <div class="row align-items-center">
+                <div class="col justify-content-center text-center">
+                    <!-- 投稿動画のmethodの部分 -->
+                    <video width="100%" controls loop="" preload="metadata"
+                        onclick="this.paused ? this.play() : this.pause(); arguments[0].preventDefault();">
+                        <source src="img/method_1.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div><br>
+            <p> This video showcases the implementation with the robot. The semi-transparent robot models represent the
+                trajectories generated.</p>
+            <div class="row align-items-center">
+                <div class="col justify-content-center text-center">
+                    <!-- 投稿動画の分身動画部分，無音で -->
+                    <video width="100%" controls loop="" preload="metadata"
+                        onclick="this.paused ? this.play() : this.pause(); arguments[0].preventDefault();">
+                        <source src="img/method_2.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="section">
+            <h2>Experiment</h2>
+            <hr>
+            <p> This experiment shows the integration of the Robot Local Planner into a Tidy-up task.
+                Compared to conventional RRT-based motion planning, the task completion time was reduced by
+                approximately 28%. </p>
+            <div class="row align-items-center">
+                <div class="col justify-content-center text-center">
+                    <!-- Tidy-upの長いバージョン，無音で -->
+                    <video width="100%" controls loop="" preload="metadata"
+                        onclick="this.paused ? this.play() : this.pause(); arguments[0].preventDefault();">
+                        <source src="img/experiment_1.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div><br>
+            <p> This video shows the RLP's ability to dynamically avoid collisions, proving its effectiveness in
+                real-world scenarios.</p>
+            <div class="row align-items-center">
+                <div class="col justify-content-center text-center">
+                    <!-- 障害物回避の部分，無音で -->
+                    <video width="100%" controls loop="" preload="metadata"
+                        onclick="this.paused ? this.play() : this.pause(); arguments[0].preventDefault();">
+                        <source src="img/experiment_2.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+            <br>
+
+            <div class="section">
+                <section id="bibtex">
+                    <h2>Citation</h2>
+                    <hr>
+                    <pre><code>@inproceedings{RobotLocalPlanner2025,
+    title = {Robot Local Planner: A Periodic Sampling-Based Motion Planner with Minimal Waypoints for Home Environments},
+    author = {Takeshita, Keisuke and Yamazaki, Takahiro and Ono, Tomohiro and Yamamoto, Takashi},
+    booktitle = {Proceedings of the IEEE International Conference on Robotics and Automation (ICRA)},
+    year = {2025},
+    pages = {X--X},
+    doi = {DOI URL},
+    publisher = {IEEE},
+}</code></pre>
+                </section>
+            </div>
+
+            <div class="section">
+                <h2>Notification</h2>
+                <hr>
+                <p> The project page was solely developed for and published as part of the publication, titled
+                    ``<i>Robot Local Planner: A Periodic Sampling-Based Motion Planner with Minimal Waypoints for Home
+                        Environments</i>''
+                    for its visualization.
+                    We do not ensure the future maintenance and monitoring of this page.</p>
+                <p> Contents might be updated or deleted without notice regarding the original manuscript update and
+                    policy
+                    change. </p>
+                <p>This webpage template was adapted from <a
+                        href='https://woven-planet.github.io/DiffusionNOCS/'>DiffusionNOCS</a> and <a
+                        href='https://toyotafrc.github.io/SketchMoMa-Proj/'>SketchMoMa</a> -- we thank Takuya Ikeda and
+                    Kosei Tanada for additional support and making their source available.</p>
+            </div>
+        </div>
+</body>
+
+</html>
